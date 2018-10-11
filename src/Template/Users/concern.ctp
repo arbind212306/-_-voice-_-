@@ -12,7 +12,7 @@ use Cake\View\Helper\UrlHelper;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | My Voice</title>
+    <title>Complaint Confirmation | My Voice</title>
     
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -105,8 +105,9 @@ $session_user_id = $session_data["Auth"]["User"]["id"];
                         <div class="col-md-4 text-center p-t-10">
                             <button type= "button" class="btn btn-dark p-a-10 hidden" id="btn-previous"><i class="fa fa-angle-left fa-lg p-r-20"></i> Step Back</button>
                         </div>
-                        <form method='GET' action='<?= $url_pdf?>'>
+                        <form method='POST' action='<?= $url_pdf?>'>
                         <div class="col-md-4 text-right p-t-10">
+                            <input type="hidden" name="last_compalint_id" value="<?= $id ?>">
                             <button class="btn btn-dark p-a-10" id="btn-download"><i class="fa fa-file-pdf-o fa-lg p-r-20"></i> Download PDF</button>
                         </div>
                         </form>

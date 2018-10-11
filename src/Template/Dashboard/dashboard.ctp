@@ -65,8 +65,6 @@ $medium = $this->Url->build(['severity' => 'Medium','controller' => 'MyVoiceCont
 
                         <?php $changepassword= $this->Url->build(['controller' => 'Users', 'action' => 'changepassword',$user_id]);?>
 
-                        <?php $changepassword= $this->Url->build(['controller' => 'Users', 'action' => 'changepassword',$user_id ]);?>
-                        <?php $changepassword= $this->Url->build(['controller' => 'Users', 'action' => 'changepassword',$user_id ]);?>
                         <li><a href="<?= $changepassword ?>">Change Password</a></li>
                         <li role="separator" class="divider"></li>
                         <?php $logout= $this->Url->build(['controller' => 'Users', 'action' => 'logout']);?>
@@ -83,7 +81,7 @@ $medium = $this->Url->build(['severity' => 'Medium','controller' => 'MyVoiceCont
         <div class="col-sm-2 hidden-xs">
             <div class="fixed-side-pane">
                 <ul>
-                    <li><a href="<?= $dashboard ?>">Dashboard</a></li>
+                    <li class="active"><a href="<?= $dashboard ?>">Dashboard</a></li>
                     <li><a href="<?= $report ?>">Complaints</a></li>
                     <li><a href="<?= $profile ?>">Profile</a></li>
                 </ul>
@@ -176,6 +174,12 @@ $medium = $this->Url->build(['severity' => 'Medium','controller' => 'MyVoiceCont
                     <div id="chart-container"></div>
                 </div>
                 <div class="m-t-30 panel-block" >
+                    <div id="chart5"></div>
+                </div>
+                <div class="m-t-30 panel-block" >
+                    <div id="chart6"></div>
+                </div>
+                <div class="m-t-30 panel-block" >
                     <div id="chart2"></div>
                 </div>
                 <div class="m-t-30 panel-block" >
@@ -184,12 +188,7 @@ $medium = $this->Url->build(['severity' => 'Medium','controller' => 'MyVoiceCont
                 <div class="m-t-30 panel-block" >
                     <div id="chart4"></div>
                 </div> 
-                <div class="m-t-30 panel-block" >
-                    <div id="chart5"></div>
-                </div>
-                <div class="m-t-30 panel-block" >
-                    <div id="chart6"></div>
-                </div>
+                
 <!--                <div class="m-t-30 panel-block" >
                     <div><h5 id="title5">Category Vs Location</h5></div>
                         <div id="chart6"></div>
@@ -215,7 +214,7 @@ var disp  = <?= $disp ?>;
 var other = <?= $other ?>;
 const dataSource = {
   "chart": {
-    "caption": "Complaints",
+    "caption": "Complaints Trend",
     "yaxisname": "Number of Complaints",
     "xaxisname": "Months",
     "showhovereffect": "1",
@@ -305,7 +304,7 @@ FusionCharts.ready(function() {
 </script>
 <!-- Script for first graph ends here -->
 
-<!-- Script for second graph starts here -->
+<!-- Script for fourth graph starts here -->
 <script>
 $("#chart2").insertFusionCharts({
    type: "pie3d",
@@ -314,7 +313,7 @@ $("#chart2").insertFusionCharts({
    dataFormat: "json",
    dataSource: {
   "chart": {
-    "caption": "Category",
+    "caption": "Complaints Category",
     "showvalues": "1",
     "showpercentintooltip": "0",
 //    "enablemultislicing": "1",
@@ -350,7 +349,7 @@ $("#chart2").insertFusionCharts({
 }
 });
 </script>
-<!-- script for fourth graph -->
+<!-- script for Fifth graph -->
 <script>
 $("#chart3").insertFusionCharts({
    type: "pie3d",
@@ -359,7 +358,7 @@ $("#chart3").insertFusionCharts({
    dataFormat: "json",
    dataSource: {
   "chart": {
-    "caption": "Severity",
+    "caption": "Complaints Severity",
     "showvalues": "1",
     "showpercentintooltip": "0",
     "enablemultislicing": "1",
@@ -390,7 +389,7 @@ $("#chart3").insertFusionCharts({
 });
 </script>
 
-<!-- script for fifth graph -->
+<!-- script for Sixth graph -->
 <script>
 $("#chart4").insertFusionCharts({
    type: "pie3d",
@@ -399,7 +398,7 @@ $("#chart4").insertFusionCharts({
    dataFormat: "json",
    dataSource: {
   "chart": {
-    "caption": "Status",
+    "caption": "Complaints Status",
     "showvalues": "1",
     "showpercentintooltip": "0",
     "enablemultislicing": "1",
@@ -435,7 +434,7 @@ $("#chart4").insertFusionCharts({
 }
 });
 </script>
-<!-- script for fifth graph location vs complaint -->
+<!-- script for second graph location vs complaint -->
 <script>
 var harssCity = <?= $harassCity ?>;  
 var ethicCity = <?= $ethicCity ?>;
@@ -448,7 +447,7 @@ $("#chart5").insertFusionCharts({
    dataFormat: "json",
    dataSource: {
   "chart": {
-    "caption": "Category Vs Location",
+    "caption": "Location Vs Category",
     "xaxisname": "Location",
     "yaxisname": "Total number of Complaints",
     "formatnumberscale": "1",
@@ -520,7 +519,7 @@ $("#chart5").insertFusionCharts({
     }
 });
 </script>
-<!-- script for sixth graph i.e., staus vs complaint -->
+<!-- script for Third graph i.e., staus vs complaint -->
 <script>
     var getsatus = <?= $getSatatus ?>;
     var getHarassStatus = <?= $getHarassStatus ?>;
@@ -534,7 +533,7 @@ $("#chart5").insertFusionCharts({
    dataFormat: "json",
    dataSource: {
   "chart": {
-    "caption": "Status Vs Complaint",
+    "caption": "Status Vs Complaints",
     "xaxisname": "Satus",
     "yaxisname": "Total number of Complaint",
     "labelDisplay": "rotate",
@@ -732,7 +731,7 @@ $(document).ready(function(){
 /*        height: 500px !important;
         width: 60% !important;*/
     }
-    #chart2 {
+/*    #chart2 {
         margin-left: 5%;
     }
     
@@ -742,7 +741,7 @@ $(document).ready(function(){
     
     #chart4 {
         margin-left: 5%;
-    }
+    }*/
     
     #chart5 {
         height: 500px;

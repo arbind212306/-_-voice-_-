@@ -7,7 +7,7 @@ use Cake\View\Helper\UrlHelper;?>
  
  <div class="container-fluid margin-top-60">
     <div class="row">
-<?php echo $this->element('myvoice_sidebar'); ?>
+<?php echo $this->element('sidebar'); ?>
  <?php echo $this->fetch('content'); ?>
  
  </div>

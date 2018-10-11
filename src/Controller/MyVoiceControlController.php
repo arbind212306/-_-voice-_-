@@ -52,12 +52,14 @@ class MyVoiceControlController extends AppController {
 
     public function profiles() {
         $active = 2;
+
         $this->loadModel('Users');
         $session = $this->request->session();
         $useremailid = $session->read('user_email');
         $this->viewBuilder()->layout('manager_layout');
         $user_profile_detail = $this->Users->find('all')->where(['Users.email' => $useremailid])->toArray();
-        $this->set(compact('user_profile_detail', 'active'));
+        $complaint_id=null;
+        $this->set(compact('user_profile_detail', 'active','complaint_id'));
     }
 
     public function dashboard() {
@@ -423,7 +425,7 @@ class MyVoiceControlController extends AppController {
         $session_data = $session->read();
         $user_id = $session_data["Auth"]["User"]["id"];
         $user_role = $session_data["Auth"]["User"]["role"];
-        $session_user_email = $session_data["Auth"]["User"]["email"];
+         $session_user_email = $session_data["Auth"]["User"]["email"];
         $this->loadModel('Users');
         $this->loadModel('Witns');
         $this->loadModel('Complaints');
@@ -521,29 +523,18 @@ class MyVoiceControlController extends AppController {
                         ->where(['complaints.assigned_to' => $assigned_to, 'complaints.complaint_id' => $complaint_id])
                         ->execute();
 
-						  $userTable = TableRegistry::get("users");
-						$userdetailrecord=$userTable->find('all')->where(['id'=>$assigned_to])->toArray();
-						$useremailrecord=$userdetailrecord[0]->email;
-						$userename=$userdetailrecord[0]->name;
-						
+						  
 					
-						$usercomplaint=$userTable->find('all')->where(['id'=>$complaint_id])->toArray();
-					$usercomplaintcode=$usercomplaint[0]->complaint_id;
-					
-						$newemail = new Email();
+						/*$newemail = new Email();
                     $newemail->viewVars(['name' => $userename, 'complaint_id' =>$usercomplaintcode]);
                     $newemail->from(['learning@quatrro.com' => 'MyVoice'])
                             ->to($useremailrecord)
                             ->template('complaintSpocAcceptMail', 'mail')
                             ->emailFormat('html')
                             ->subject('Myvoice : Complaint accepted')
-                            ->send();
+                            ->send();*/
 						
 						
-						
-						
-
-
                 $this->redirect(['controller' => 'Complaint', 'action' => 'route', $complaint_id]);
             }
         } else {
@@ -995,6 +986,7 @@ INNER JOIN users as u  on u.id=c.assigned_to where c.assigned_to!= '' AND c.comp
                         ->emailFormat('html')
                         ->subject(" Myvoice : New complaint  assigned   ")
                         ->send();
+						
 
                 // $sql = "select distinct u.id,u.complaint_id,u.Name,u.empid,u.email,u.bu,c.assign_status,c.assigned_to from users as u INNER JOIN complaints as c on u.id=c.complaint_id where assigned_to='".$assign_to."' AND u.id=$complaint_id AND c.assigned_to <> '' AND c.assigned_to <> '0' group by c.assigned_to";
                 $sql = "select distinct u.id,u.Name,u.empid,u.email,u.bu,c.assign_status,c.assigned_to from users as u INNER JOIN complaints as c on u.id=c.assigned_to where u.id='" . $assign_to . "' AND c.assigned_to <> '' AND c.assigned_to <> '0' group by c.assigned_to";
@@ -2036,11 +2028,18 @@ INNER JOIN users as u  on u.id=c.assigned_to where c.assigned_to!= '' AND c.comp
     }
 
     public function generatePdf($id = '') {
+        $this->autoRender = false;
+        // echo $this->request->here;
+        $last_complaint_id = $this->request->data('last_compalint_id');
         // instantiate and use the dompdf class
-        if ($id != '') {
-            $html = $this->genrateHtml($id);
+
+        if ($last_complaint_id != '') {
+            // echo $this->request->here;
+            $html = $this->genrateHtml($last_complaint_id);
+            // echo $html;exit;
+
             $user = TableRegistry::get("users");
-            $complain = $user->find()->select('complaint_id')->where(['id' => $id])->toArray();
+            $complain = $user->find()->select('complaint_id')->where(['id' => $last_complaint_id])->toArray();
             $extract_complaintid = $complain[0]['complaint_id'];
             $document_name = $extract_complaintid;
             $dompdf = new Dompdf();
@@ -2058,6 +2057,7 @@ INNER JOIN users as u  on u.id=c.assigned_to where c.assigned_to!= '' AND c.comp
 
     public function genrateHtml($id = '') {
         if ($id != '') {
+   
             $connection = ConnectionManager::get('default');
             $sql = "SELECT users.* FROM users WHERE users.id = '" . $id . "'";
             $result = $connection->execute($sql)->fetchAll('assoc');
@@ -2293,7 +2293,7 @@ INNER JOIN users as u  on u.id=c.assigned_to where c.assigned_to!= '' AND c.comp
             $html .= '</body>';
             $html .= '</html>';
 
-//               echo $html;exit;
+              // echo $html;exit;
             return $html;
         }
     }
@@ -2643,8 +2643,8 @@ INNER JOIN users as u  on u.id=c.assigned_to where c.assigned_to!= '' AND c.comp
         }
         // die;
         // Set sidebar
-        if (in_array($role, [3, 11])) {
-            $allowed = [12, 13, 14];
+        if (in_array($role, [11])) {
+            $allowed = [14,12, 13];
         } else {
             $allowed = [12, 13];
         }

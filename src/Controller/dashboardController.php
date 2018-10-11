@@ -31,6 +31,9 @@ class DashboardController extends AppController {
         if (trim($year) === 'all') {
             $year = '';
         }
+        $session = $this->request->session();
+        $sessionData = $session->read();
+        $role = $sessionData['Auth']['User']['role'];
       //code for total counting of cases
       $totalCase = $this->Hr->getTotalCases($year);
       $totalHarassment = $this->Hr->getTotalHarassmentCase($year);

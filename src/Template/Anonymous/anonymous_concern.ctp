@@ -19,8 +19,8 @@ use Cake\View\Helper\UrlHelper;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register Anonymous complaint | My Voice</title>
     <!-- Bootstrap -->
-  <?= $this->Html->css('bootstrap.css') ?>
-    <?= $this->Html->css('style.css') ?>
+  <?= $this->Html->css('bootstrap') ?>
+  <?= $this->Html->css('style') ?>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 
@@ -30,12 +30,13 @@ use Cake\View\Helper\UrlHelper;
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <!-- below link is used for progress bar -->
+    <link href='https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+    
+    <?= $this->Html->css('progress'); ?>
+    <link rel="stylesheet" href="<?= $this->Url->build('/webroot/css/css3.scss') ; ?>"/>
+    
 </head>
- <style>
-/* unvisited link */
-
-</style>
 <body>
 <nav class="navbar navbar-default navbar-white navbar-fixed-top">
     <div class="container-fluid">
@@ -82,14 +83,31 @@ use Cake\View\Helper\UrlHelper;
         
         <div class="col-sm-10">
             
+            <!-- progress bar code -->
+            
+            <div class="checkout-wrap" style="margin-top:4%;">
+                <ul class="checkout-bar" style="">
+                    <li class="visited first basicDetails" id="basicDetails">
+                        Basic Details
+                    </li>
+                    <li class="previous" id="workDetails">Work Details</li>
+                    <li class="active" id="complaints">Complaint</li>
+                    <li class="next" id="offender">Offender</li>
+                    <li class="witness" id="witnessess">Witnessess</li>
+                    <li class="confirm" id="confirm">Confirm</li>
+                </ul>
+            </div>
+            <!-- end of progress bar -->
+            
             <!------------- Form OPen -->
             
             <?= $this->Form->create('User', array('url' => array('controller' => 'Anonymous','action' =>'anonymousConcern'),'enctype'=>'multipart/form-data', 'id' =>'anonymus-formdata')); ?>
             <div class="container-fluid" id="concern-form">
-                <div class="concern-form-section active" data-section-order="1">
+                <div class="concern-form-section active basic" data-section-order="1">
                     <div class="panel-block bg-transparent">
                         <h2 class="panel-block-title">Basic Details</h2>
                     </div>
+                    
                     <div class="panel-block">
                         <div class="row">
                             <div class="col-md-12">
@@ -196,10 +214,11 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
                             </div>
                     </div>
                 </div>
-                <div class="concern-form-section hidden" data-section-order="2">
+                <div class="concern-form-section work hidden" data-section-order="2" id="workDiv">
                     <div class="panel-block bg-transparent">
                         <h2 class="panel-block-title">Work Details</h2>
                     </div>
+                    
                     <div class="panel-block">
                         <div class="row">
                             <div class="col-md-6">
@@ -265,7 +284,7 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
                         </div> -->
                     </div>
                 </div>
-                <div class="concern-form-section hidden" data-section-order="3">
+                <div class="concern-form-section complaint hidden" data-section-order="3" id="complaintDiv">
                     <div class="panel-block bg-transparent">
                         <h2 class="panel-block-title">Complaint</h2>
                     </div>
@@ -374,10 +393,11 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
                     </div>
                 </div>
                 <!-- Accused starts section here -->
-                <div class="concern-form-section hidden" data-section-order="4">
+                <div class="concern-form-section offenderDiv hidden" data-section-order="4" id="offenderDiv">
                     <div class="panel-block bg-transparent">
                         <h2 class="panel-block-title">Offender</h2>
                     </div>
+                    
                     <div class="panel-block">
                         <div class="row">
                             <div class="col-md-6">
@@ -397,10 +417,11 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
                     </div>
                 </div>
                 <!-- Accused section ends here -->
-                <div class="concern-form-section hidden" data-section-order="5">
+                <div class="concern-form-section witnessessDiv hidden" data-section-order="5">
                     <div class="panel-block bg-transparent">
                         <h2 class="panel-block-title">Witnesses</h2>
                     </div>
+                    
                     <div class="panel-block">
                         <div class="row">
                             <div class="col-md-6">
@@ -419,7 +440,7 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
                         </div>
                     </div>
                 </div>
-                <div class="concern-form-section hidden" data-section-order="6">
+                <div class="concern-form-section confirmDiv hidden" data-section-order="6">
                     <div class="panel-block bg-transparent">
                         <h2 class="panel-block-title">Confirm</h2>
                     </div>
@@ -435,20 +456,16 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
 							
 							 <div class="col-md-3 form-horizontal">
                               <div class="form-group row">
-                             <div class="col-md-7" style="margin-right:-50px;margin-top:19px;">
+                             <div class=" col-md-7 col-xs-8 col-sm-4" style="margin-right:-50px;margin-top:19px;">
                     <input type="text" name="CaptchaInput" id="CaptchaDiv" size="15" style="font: bold 18px verdana, arial ; margin-top:5px;width:80% !important; height:44px;" onchange="ValidCaptcha()" class="form-control"  height="48"  disabled="disabled">
                 </div>
               
-                <div class="col-md-4">
-                   <button type="button" class = "refresh_captcha" id="myBtn" style="border:none;background-color:#fff;width:100%;"><?php echo $this->Html->image("captcha-image.jpg",  array( 'escape' => false,'style'=>'border:none;background-color:#fff;width:70%;margin-top:30px;padding-left:0px !important;')); ?></button>
+                <div class="col-md-4 col-xs-4 col-sm-2">
+                   <span onclick= "return refreshCaptcha();" class = "refresh_captcha" id="myBtn" style="border:none;width:100%;"><?php echo $this->Html->image("captcha-image.png",  array( 'escape' => false,'style'=>'border:none;background-color:none;width:70%;    height: 32px;margin-top:30px;padding-left:0px !important;')); ?></span>
                 </div>
             </div>
 			 </div>
-       
-                           
-						
-						    
-						
+
                              <!-- <div class="col-md-1">
                                  <button class="refresh_captcha " id="myBtn" type="button" style="background-color:#fff;border:none;margin-top:20px;"><?= $this->Html->image('captcha_refresh.png')?></button>
                             </div> -->
@@ -462,7 +479,8 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
                         </div>
                         <div class="row m-t-30">
                             <div class="col-xs-12">
-                                <label><input type="checkbox" id="confirm_check"> I confirm that I have carefully read and accepted the <a data-toggle="modal" href="#myModal3" style="color: #4770d1">terms & conditions</a> for this action</label><br>
+                                <label><input type="checkbox" id="confirm_check"> I confirm that I have carefully read and accepted the terms & conditions for this action</label><br>
+
                                 <span id="check_confirm_check" style="color: red"></span>
                             </div>
                         </div>
@@ -755,8 +773,9 @@ echo $this->Form->select('c_tried_r_own',$resolve_complaint,['class'=>'form-cont
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<?= $this->Html->script('bootstrap.min.js') ?>
-<?= $this->Html->script('custom.js') ?>
+<?= $this->Html->script('bootstrap.min') ?>
+<?= $this->Html->script('custom') ?>
+<?= $this->Html->script('progress'); ?>
 
 <script>
     //query for generating listing of selceted image for uploading 

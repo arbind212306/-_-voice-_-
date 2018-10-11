@@ -12,7 +12,7 @@ use Cake\View\Helper\UrlHelper;
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login | My Voice</title>
+    <title>Complaint Confirmation | My Voice</title>
     
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -65,9 +65,9 @@ use Cake\View\Helper\UrlHelper;
  <div class="col-sm-10">
  <div class="container-fluid" id="concern-form">
 <div class="concern-form-section " >
-                    <div class="panel-block" style="padding-left:150px;">
+                    <div class="panel-block" style="">
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-8 col-sm-12  col-xs-12">
                                 <div>
                                     <h3 class="text-muted success"><b>Your complaint has been raised.</b></h3>
                                 </div>
@@ -89,11 +89,12 @@ use Cake\View\Helper\UrlHelper;
 					
 					 <div class="panel-block form-navigation margin-bottom-30 bg-transparent">
                     <div class="row">
-                        <div class="col-md-4 text-center p-t-10">
+                        <div class="col-md-4 col-sm-4 text-center p-t-10">
                             <button type= "button" class="btn btn-dark p-a-10 hidden" id="btn-previous"><i class="fa fa-angle-left fa-lg p-r-20"></i> Step Back</button>
                         </div>
-                        <form method='GET' action='<?= $url_pdf?>'>
-                        <div class="col-md-4 text-right p-t-10">
+                        <form method='POST' action='<?= $url_pdf ?>'>
+                        <div class="col-md-4 col-sm-4  p-t-10">
+                            <input type="hidden" name="last_compalint_id" value="<?= $id ?>">
                             <button type= "submit" class="btn btn-dark p-a-10" id="btn-download"><i class="fa fa-file-pdf-o fa-lg p-r-20"></i> Download PDF</button>
                         </div>
                         </form>

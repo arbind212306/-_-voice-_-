@@ -420,8 +420,8 @@ class UsersController extends AppController {
 							 pr($spreadsheet);
                             $sheetData = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
                             //pr($sheetData);die;
-                            var_dump($sheetData);
-die();
+                            // var_dump($sheetData);
+// die();
                             $save_count=0;
                             $not_save_count=0;
                             foreach($sheetData as $k => $usersdata){
@@ -630,7 +630,7 @@ die();
         $individual_registered_user_detail = $this->Users->find()->where(['Users.id' => $id])->toArray();
 
         if ($this->request->is('post')) {
-            // pr($this->request->data);die;
+             // pr($this->request->data);die;
             $c_title = $this->request->data['c_title'];
             $concern_regarding = $this->request->data['category_concern'];
             $other_issue = $this->request->data['category_concern_sub'];
@@ -716,6 +716,22 @@ die();
                             }
                         }
                     }
+                }
+                
+                
+                // If user has uploaded audio file , Upload that to complaintsDetail table
+                if(!empty($this->request->data['user_audio'])){
+                    $user_audio=$this->request->data['user_audio'];
+                    $comDetailTable = TableRegistry::getTableLocator()->get('Complaintdetails');
+                    $cdetails=$comDetailTable->newEntity();
+                    if(!empty($this->Auth->user('id'))){
+                        $cdetails->user_id=$this->Auth->user('id');
+                    }else{
+                        $cdetails->user_id=0;
+                    }                    
+                    $cdetails->complaint_id=$complaint_id;
+                    $cdetails->audio=$user_audio;
+                    $comDetailTable->save($cdetails);
                 }
 
                 //query for inserting witness data

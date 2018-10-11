@@ -1,0 +1,83 @@
+
+/*
+.circle-text {
+display: table-cell;
+height: 200px; change this and the width
+for the size of your initial circle
+width: 200px;
+text-align: center;
+vertical-align: middle;
+border-radius: 50%;
+make it pretty
+background: #000;
+color: #fff;
+font: 18px "josefin sans", arial; 
+position: absolute;
+z-index: 99999;
+left:20px;
+}*/
+
+/*.circle {
+   display: table-cell;
+   height: 40px;
+   text-align: center;
+   vertical-align: middle;
+   border-radius: 50% !important;
+   background: #000;
+   color: #fff;
+   font: 18px "josefin sans", arial;
+}*/
+
+/*div.progress div:nth-child(1):before {
+  content: "1";
+  width:40px;
+}*/
+
+.progress {
+    margin-top: 5%;
+    margin-left: 46px
+}
+
+.progress {
+     margin-right: 45px !important;
+}
+#basic-btn-div {
+    border-radius: 50%;
+    background-color: #ccc; /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    width: 40px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;  
+    position: absolute;
+}
+
+.btn-basicProgress {
+    margin: -4.5% 0% 0% 2.5%;
+}
+
+.btn-workProgress {
+    margin: -4.5% 0% 0% 17%;
+}
+
+.btn-complaintProgress {
+    margin: -4.5% 0% 0% 32%;
+}
+
+.btn-offenderProgress {
+    margin: -4.5% 0% 0% 46.5%;
+}
+
+.btn-witnessProgress {
+    margin: -4.5% 0% 0% 61%;
+}
+
+.btn-confirmProgress {
+    margin: -4.5% 0% 0% 77%;
+}
+
+.btn-finalProgress {
+    margin: -4.5% 0% 0% 91%;
+}

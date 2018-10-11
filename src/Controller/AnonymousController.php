@@ -212,14 +212,14 @@ exit;
 
 if ($usersTable->save($usersdata)) {
 
-                  $email = new Email();
-                       $email->viewVars(['name' => $name,'complaint_id'=>$complaint_id]);
-                    $email->from(['learning@quatrro.com' => 'MyVoice'])
+                  /*$newemailmail = new Email();
+                       $newemailmail->viewVars(['complaint_id'=>$complaint_id,'name'=>$name]);
+                    $newemailmail->from(['learning@quatrro.com' => 'MyVoice'])
                   ->to($emailid)
-				  ->template('complaint', 'mail')
+				  ->template('anonymouscomplaint', 'mail')
 				  ->emailFormat('html')
                   ->subject('Your complaint has been registered successfully')
-				  ->send();
+				  ->send();*/
 
              $id = $usersdata->id;
 //             var_dump($id);exit;

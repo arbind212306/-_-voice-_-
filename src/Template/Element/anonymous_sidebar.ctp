@@ -20,9 +20,6 @@
                     <ul class="dropdown-menu">
 <?php $logout= $this->Url->build(['controller' => 'Users', 'action' => 'logout']);?>
                         <li><a href="<?= $logout; ?>">Exit</a></li>
-                     <?php $logout= $this->Url->build(['controller' => 'Users', 'action' => 'logout']);?>
-                        <li><a href="<?php = $logout; ?>">Sign Out</a></li>
-                        <li><a href="<?php $logout; ?>">Exit</a></li>
                     </ul>
                 </li>
             </ul>
